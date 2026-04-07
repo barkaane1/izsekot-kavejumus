@@ -1,8 +1,8 @@
-Stundu kavējumu uzskaites sistēma
+#Stundu kavējumu uzskaites sistēma
 Apraksts
 Šī lietotne ir izstrādāta, lai palīdzētu skolēniem un studentiem efektīvi sekot līdzi savam mācību apmeklējumam. Tā risina problēmu, kad ir grūti pārskatīt kopējo kavējumu dinamiku un saprast, kā tie ietekmē kopējo apmeklējuma procentu.
 
-Galvenās funkcijas:
+#Galvenās funkcijas:
 
 Lietotāja reģistrācija un droša pieslēgšanās savam profilam.
 
@@ -15,7 +15,7 @@ Iepriekšējo nedēļu datu vēstures apskate un profila informācijas labošana
 Tehnoloģijas
 Projekta izstrādē izmantotas šādas tehnoloģijas:
 
-Valodas: Python, HTML, CSS.
+#Valodas: Python, HTML, CSS.
 
 Ietvars (Framework): Flask (tīmekļa saskarnes nodrošināšanai).
 
@@ -24,9 +24,9 @@ Datubāze: SQLite (lietotāju datu un vēstures saglabāšanai).
 
 Licence: MIT (izvēlēta kā permisīva un atvērta licence).
 
-Plānošana
+#Plānošana
 Projekta izstrādes procesā tika izmantoti šādi plānošanas materiāli:
 
-ERD (Datubāzes shēma): [Šeit ievieto saiti uz savu Lucidchart vai draw.io shēmu].
+ERD (Datubāzes shēma): https://lucid.app/lucidchart/4912fda4-4571-478b-90e9-97a305ddc929/edit?viewport_loc=-641%2C441%2C1663%2C753%2C0_0&invitationId=inv_46e0b86a-2336-464c-a260-634a785a2874.
 
-Wireframes (Saskarsnes skices): [Šeit ievieto saiti uz savu Figma prototipu vai draw.io skicēm].
+
