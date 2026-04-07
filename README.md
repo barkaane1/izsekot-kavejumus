@@ -1,32 +1,30 @@
-#Stundu kavējumu uzskaites sistēma
-Apraksts
-Šī lietotne ir izstrādāta, lai palīdzētu skolēniem un studentiem efektīvi sekot līdzi savam mācību apmeklējumam. Tā risina problēmu, kad ir grūti pārskatīt kopējo kavējumu dinamiku un saprast, kā tie ietekmē kopējo apmeklējuma procentu.
+# 📊 Stundu kavējumu uzskaites sistēma
 
-#Galvenās funkcijas:
+## 📝 Apraksts
+Šī lietotne palīdz skolēniem sekot līdzi savam mācību apmeklējumam un automātiski aprēķināt kavējumu procentuālo vērtību. [cite_start]Tā nodrošina drošu datu glabāšanu SQLite datubāzē un iespēju labot profilu vai apskatīt vēsturi.
 
-Lietotāja reģistrācija un droša pieslēgšanās savam profilam.
+## 🛠 Tehnoloģijas
+* **Backend:** Python (Flask ietvars)
+* **Frontend:** HTML, CSS (pielāgoti fonti un responsīvs dizains )
+* **Datubāze:** SQLite
+* **Licence:** MIT
 
-Iknedēļas stundu un kavējumu ievade.
+## 📐 Plānošana un Struktūra
 
-Automātiska apmeklējuma procentuālā aprēķināšana.
+### 1. Lietotāja saskarnes skices (Wireframes)
+Lietotne ir izstrādāta, lai būtu lietojama gan uz datora, gan mobilajām ierīcēm.
+>https://drive.google.com/file/d/1zzvATNpDV7Iw_PPNaTNWcslxxQIqf-4Y/view?usp=sharing
 
-Iepriekšējo nedēļu datu vēstures apskate un profila informācijas labošana.
+### 2. Datubāzes shēma (ERD)
+Sistēma izmanto relāciju datubāzi ar trim galvenajām tabulām: `LIETOTAJI`, `KAVEJUMI` un `JAUNUMI`, nodrošinot 1:N saiti starp lietotāju un viņa ierakstiem.
+>https://lucid.app/lucidchart/4912fda4-4571-478b-90e9-97a305ddc929/edit?viewport_loc=-641%2C441%2C1663%2C753%2C0_0&invitationId=inv_46e0b86a-2336-464c-a260-634a785a2874
 
-Tehnoloģijas
-Projekta izstrādē izmantotas šādas tehnoloģijas:
+## 📋 Prasību izpilde
+* **Ātrdarbība:** Informācija ielādējas mazāk nekā 1500 ms.
+***Drošība:** Datu aizsardzībai paredzēta SSL šifrēšana un unikāli lietotājvārdi.
+* **Validācija:** Sistēma pieņem tikai skaitliskas vērtības stundu laukos.
 
-#Valodas: Python, HTML, CSS.
-
-Ietvars (Framework): Flask (tīmekļa saskarnes nodrošināšanai).
-
-
-Datubāze: SQLite (lietotāju datu un vēstures saglabāšanai).
-
-Licence: MIT (izvēlēta kā permisīva un atvērta licence).
-
-#Plānošana
-Projekta izstrādes procesā tika izmantoti šādi plānošanas materiāli:
-
-ERD (Datubāzes shēma): https://lucid.app/lucidchart/4912fda4-4571-478b-90e9-97a305ddc929/edit?viewport_loc=-641%2C441%2C1663%2C753%2C0_0&invitationId=inv_46e0b86a-2336-464c-a260-634a785a2874.
+## ⚖️ Licence
+Šis projekts ir licencēts saskaņā ar **MIT licenci** – tas ir atvērts pirmkods, kuru drīkst brīvi lietot un mainīt.
 
 
