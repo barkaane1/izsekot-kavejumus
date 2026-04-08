@@ -1,7 +1,7 @@
 # 📊 Stundu kavējumu uzskaites sistēma
 
 ## 📝 Apraksts
-Šī lietotne palīdz skolēniem sekot līdzi savam mācību apmeklējumam un automātiski aprēķināt kavējumu procentuālo vērtību. [cite_start]Tā nodrošina drošu datu glabāšanu SQLite datubāzē un iespēju labot profilu vai apskatīt vēsturi.
+Šī lietotne palīdz skolēniem sekot līdzi savam mācību apmeklējumam un automātiski aprēķināt kavējumu procentuālo vērtību. Tā nodrošina drošu datu glabāšanu SQLite datubāzē un iespēju labot profilu vai apskatīt vēsturi.
 
 ## 🛠 Tehnoloģijas
 * **Backend:** Python (Flask ietvars)
