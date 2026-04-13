@@ -1,0 +1,19 @@
+{% extends "sagatave.html" %}
+{% block content %}
+
+<form method="POST"> 
+    <input class="form-control" name="izteiksme" placeholder="Ieraksti vienkāršu izteiksmi">
+    <button type="submit" class="btn btn-primary">Aprēķini!</button>
+</form>
+
+<hr>
+
+{# Parādām šo bloku tikai tad, ja rezultāts nav None #}
+{% if r is not none %}
+    <div class="alert alert-info">
+        Rezultāts ir: <strong>{{ r }}</strong>
+    </div>
+{% endif %}
+
+
+{% endblock %}

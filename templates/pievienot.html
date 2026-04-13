@@ -1,0 +1,25 @@
+{% extends "sagatave.html" %}
+{% block content %}
+
+<form method="POST" action="/pievienot">
+
+	<label for="nosaukums">Filmas nosaukums </label><br>
+	<input type="text" id="nosaukums" name="nosaukums" placeholder="Filmas nosaukums" required><br><br>
+
+
+	<label for="skaits">Izlaišanas gads</label><br>
+	<input type="number" id="gads" name="gads" placeholder="Izdošanas gads" required><br><br>
+
+
+	<label for="skaits">Reitings</label><br>
+	<input type="number" id="reitings" name="reitings" placeholder="skaits" required><br><br>
+
+	<label for="skaits">Plakāta faila nosaukums</label><br>
+	<input type="text" id="fails" name="fails" placeholder="plakāta faila nosaukums" ><br><br>
+
+<button type = "submit" class = "btn btn-primary">pasūtīt</button>
+</form>
+
+
+
+{%  endblock %}

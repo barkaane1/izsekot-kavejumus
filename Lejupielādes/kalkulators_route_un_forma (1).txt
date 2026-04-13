@@ -1,0 +1,35 @@
+@app.route('/kalkulators', methods=['GET', 'POST'])
+def kalkulators():
+    rezultats = None  # Sākumā rezultāta nav
+    
+    if request.method == 'POST':
+        # Šī daļa izpildās tikai tad, kad nospiež pogu
+        izteiksme = request.form.get('izteiksme')
+        if izteiksme:
+            rezultats = eval(izteiksme)
+            
+    # Atgriežam to pašu lapu, bet līdzi iedodam (vai neiedodam) rezultātu
+    return render_template('kalkulators.html', r=rezultats)
+
+
+--------------------------------------------------------------------------------------------
+
+{% extends "pamats.html" %}
+{% block content %}
+
+<form method="POST"> 
+    <input class="form-control" name="izteiksme" placeholder="Ieraksti vienkāršu izteiksmi">
+    <button type="submit" class="btn btn-primary">Aprēķini!</button>
+</form>
+
+<hr>
+
+{# Parādām šo bloku tikai tad, ja rezultāts nav None #}
+{% if r is not none %}
+    <div class="alert alert-info">
+        Rezultāts ir: <strong>{{ r }}</strong>
+    </div>
+{% endif %}
+
+
+{% endblock %}

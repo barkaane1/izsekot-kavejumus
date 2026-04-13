@@ -1,0 +1,40 @@
+{% extends "sagatave.html" %}
+{% block content %}
+<h2>Filmu top 250</h2>
+<form method = "GET" action = "/filmas">
+
+	<label for="nosaukums">Filmas nosaukums </label><br>
+	<input type="text" id="nosaukums" name="nosaukums" placeholder="Filmas nosaukums" required><br><br>
+	<button type = "submit" class = "btn btn-primary">Meklēt</button>
+
+</form>
+
+
+<table class = "table">
+	<tr> 
+		<th>nosaukums</th>
+		<th>gads</th>
+		<th>reitings</th>
+		<th>plakāts</th>
+	</tr>
+	{% for f in filmas %}
+	<tr>
+		<td>{{f.Title}}</td>
+		<td>{{f.Year}}</td>
+		<td>{{f.Raiting}}</td>
+		<td>
+
+			{%  if f.Poster %}
+			<img src="{{url_for('static', filename ='img/' +f.Poster ) }}" width = 100>
+			{%  else %}
+			----------te bilde nav-------------
+			{%  endif %}
+
+		</td>
+	</tr>
+	{%  endfor %}
+
+</table>
+
+
+{%  endblock %}

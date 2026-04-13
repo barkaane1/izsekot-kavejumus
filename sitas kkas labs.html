@@ -1,0 +1,28 @@
+{% extends "sagatave.html" %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h2>Paldies par pasūtījumu!</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>Izvēlētā pica:</strong> {{ p }}</p>
+            <p><strong>Skaits:</strong> {{ s }} gab.</p>
+            <p><strong>Izmērs:</strong> {{ i }}</p>
+            <hr>
+            <p>Standarta cena: {{ sum }} €</p>
+            
+            {% if s > 3 %}
+                <p class="text-danger"><strong>Piemērota 15% atlaide!</strong></p>
+            {% endif %}
+            
+            <h3>Gala summa apmaksai: <span class="badge bg-primary">{{ g }} €</span></h3>
+        </div>
+        <div class="card-footer">
+            <a href="/" class="btn btn-secondary">Atgriezties uz sākumu</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

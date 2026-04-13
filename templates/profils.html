@@ -1,0 +1,35 @@
+
+		{% extends "sagatave.html" %}
+		{% block content %}
+
+		<h1>Tavi dati</h1>
+		<p>Sveika, {{lietotajs}}!</p>
+		<h2>Tavs darbu saraksts</h2>
+		<table class = "table">
+			<tr> 
+				<th>Darbs</th>
+				<th>ilgums</th>
+				<th>Statuss</th>
+			</tr>
+
+			{% for viens in darbi %}
+			<tr class = "{% if viens.Statuss == True %} table-success{% else %} table-danger{% endif %}">
+
+				<td>{{viens.nosaukums}}</td>
+				<td>{{viens.Ilgums}}</td>
+				<td>
+					{% if viens.Statuss == True %}
+					Izdarīts
+					{% else %}
+					NAV izdarīts
+					{% endif %}
+
+
+
+
+
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+		{%  endblock %}
