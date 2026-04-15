@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Mana Informācija</h5>
+                </div>
+                <div class="card-body">
+                    {# Izmantojam datus no SQL tabulas Lietotajs [cite: 30] #}
+                    <p><strong>Vārds, Uzvārds:</strong> {{ lietotajs['vards'] }} {{ lietotajs['uzvards'] }}</p>
+                    <p><strong>Klase:</strong> {{ lietotajs['klase'] }}</p>
+                    <p><strong>Lietotājvārds:</strong> {{ lietotajs['lietotajvards'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="alert alert-warning shadow-sm">
+                <h4>Kavējumi</h4>
+                <p>Kopā neapmeklētās stundas: <strong>{{ kavetas }}</strong></p>
+                {% if kavetas > 20 %}
+                    <small class="text-danger">Uzmanību! Tev ir liels kavējumu skaits.</small>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <a href="/stundas" class="btn btn-outline-secondary">Skatīt pilnu nedēļas plānu</a>
+    </div>
+</div>
+{% endblock %}

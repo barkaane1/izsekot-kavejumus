@@ -2,7 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import random
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
+
 app = Flask(__name__)
+
+app.secret_key = "loti_slepena_atslega_kavejumu_priekam"
 def get_db_connection():
     conn = sqlite3.connect("kavejumi.db")
     conn.row_factory = sqlite3.Row
@@ -19,19 +22,19 @@ def pieslegties():
         lietotajvards = request.form.get('lietotajvards')
         parole = request.form.get('parole')
         
-        conn = sqlite3.connect("pica.db")
+        conn = sqlite3.connect("kavejumi.db")
         conn.row_factory = sqlite3.Row
         user = conn.execute("SELECT * FROM Lietotajs WHERE lietotajvards = ?", (lietotajvards,)).fetchone()
         conn.close()
         
 
         if user and check_password_hash(user['parole'], parole):
-            session['id'] = user['id']
+            session['id'] = user['liet_id']
             session['vards'] = user['vards']
             session['loma'] = user['loma']
-            return redirect(url_for(''))
+            return redirect(url_for('sakums'))
             
-        return render_template('pieslegties.html')
+    return render_template('pieslegties.html')
 
 @app.route("/registreties", methods=['GET', 'POST'])
 #Šeit varēs izveidot kontu
@@ -50,7 +53,7 @@ def registreties( ):
         cur = conn.cursor()
 
         cur.execute("INSERT INTO Lietotajs (vards, uzvards, klase, lietotajvards, loma, parole) VALUES (?, ?, ?, ?, ?, ?)",
-                    (vards, uzvards, klase, lietotajvards, 'klients', paroles_hesh))
+                    (vards, uzvards, klase, lietotajvards, 'skolnieks', paroles_hesh))
         conn.commit()
         conn.close()
         return redirect(url_for('pieslegties'))
@@ -61,13 +64,23 @@ def registreties( ):
 #Šeit varēs pieteikt kavējumu
 def pieteikt():
 	pass
-
-
 @app.route("/profils")
-#Šeit būs lietotāja profils
 def profils():
-	pass
+    if 'id' not in session:
+        return redirect(url_for('pieslegties'))
 
+    conn = get_db_connection()
+    # Iegūstam ielogotā lietotāja datus [cite: 30]
+    user = conn.execute("SELECT * FROM Lietotajs WHERE liet_id = ?", (session['id'],)).fetchone()
+    
+    # Saskaitām visas kavētās stundas (neapm) šim lietotājam [cite: 30]
+    kavetas_summa = conn.execute("SELECT SUM(neapm) FROM stundas WHERE Liet_ID = ?", (session['id'],)).fetchone()[0]
+    conn.close()
+
+    # Ja datu nav, SUM atgriež None, nomainām uz 0
+    kavetas_stundas = kavetas_summa if kavetas_summa else 0
+
+    return render_template("profils.html", lietotajs=user, kavetas=kavetas_stundas)
 @app.route("/par")
 #Šeit būs par mājaslapas veidotājiem
 def par():
@@ -75,8 +88,17 @@ def par():
 
 @app.route("/stundas")
 #Šeit būs pieejamas visas stundas 
+@app.route("/stundas")
 def stundas():
-	pass
+    if 'id' not in session:
+        return redirect(url_for('pieslegties'))
+    
+    conn = get_db_connection()
+    # Atlasām visus ierakstus no tabulas 'stundas' [cite: 30]
+    plana_ieraksti = conn.execute("SELECT * FROM stundas WHERE Liet_ID = ?", (session['id'],)).fetchall()
+    conn.close()
+    
+    return render_template("stundas.html", plani=plana_ieraksti)
 
 @app.route("/kavets")
 #Šeit varēs redzēt cik procentuāli un skaitā ir kavētas stundas

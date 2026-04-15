@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Nedēļas plāns un apmeklējums</h2>
+        <a href="/pieteikt" class="btn btn-success">Pievienot jaunu ierakstu</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover border shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Datums / Periods</th>
+                    <th>Plānotās stundas</th>
+                    <th>Kavētās stundas</th>
+                    <th>Apmeklējuma %</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rinda in plani %}
+                <tr>
+                    <td>{{ rinda['datums'] }}</td>
+                    <td>{{ rinda['ned_st'] }}</td>
+                    <td class="{{ 'text-danger fw-bold' if rinda['neapm'] > 0 else 'text-success' }}">
+                        {{ rinda['neapm'] }}
+                    </td>
+                    <td>
+                        <div class="progress" style="height: 20px;">
+                            {# Aprēķinām apmeklējumu, atņemot kavējuma procentu no 100 #}
+                            {% set apmeklejums = 100 - rinda['procents'] %}
+                            <div class="progress-bar {{ 'bg-danger' if apmeklejums < 80 else 'bg-success' }}" 
+                                 role="progressbar" 
+                                 style="width: {{ apmeklejums }}%;" 
+                                 aria-valuenow="{{ apmeklejums }}" 
+                                 aria-valuemin="0" 
+                                 aria-valuemax="100">
+                                {{ apmeklejums|round(1) }}%
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">Plāns vēl nav izveidots.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
