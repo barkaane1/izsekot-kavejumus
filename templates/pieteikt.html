@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow border-success">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Pieteikt kavējumu 📝</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="datums" class="form-label">Datums vai periods</label>
+                        <input type="text" class="form-control" id="datums" name="datums" placeholder="Piem., 2024-05-15 vai Maija 2. nedēļa" required>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="ned_st" class="form-label">Plānotās stundas</label>
+                            <input type="number" class="form-control" id="ned_st" name="ned_st" min="1" placeholder="Piem., 40" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="neapm" class="form-label">Kavētās stundas</label>
+                            <input type="number" class="form-control" id="neapm" name="neapm" min="0" placeholder="Piem., 4" required>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-3">
+                        <button type="submit" class="btn btn-success btn-lg">Saglabāt ierakstu</button>
+                        <a href="{{ url_for('stundas') }}" class="btn btn-outline-secondary">Atcelt</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -60,10 +60,39 @@ def registreties( ):
     return render_template('registreties.html')
 
 
-@app.route("/pieteikt")
+
 #Šeit varēs pieteikt kavējumu
+@app.route("/pieteikt", methods=['GET', 'POST'])
 def pieteikt():
-	pass
+    # 1. Pārbaudām, vai lietotājs ir ielogojies
+    if 'id' not in session:
+        return redirect(url_for('pieslegties'))
+
+    if request.method == 'POST':
+        # 2. Saņemam datus no formas
+        datums = request.form.get('datums')
+        ned_st = float(request.form.get('ned_st'))
+        neapm = float(request.form.get('neapm'))
+        
+        # 3. Aprēķinām kavējumu procentu
+        if ned_st > 0:
+            procents = (neapm / ned_st) * 100
+        else:
+            procents = 0
+            
+        # 4. Saglabājam datubāzē
+        conn = get_db_connection()
+        conn.execute("""
+            INSERT INTO stundas (Liet_ID, ned_st, neapm, datums, procents) 
+            VALUES (?, ?, ?, ?, ?)
+        """, (session['id'], ned_st, neapm, datums, round(procents, 2)))
+        conn.commit()
+        conn.close()
+        
+        # 5. Pēc saglabāšanas aizsūtam uz nedēļas plānu
+        return redirect(url_for('stundas'))
+
+    return render_template("pieteikt.html")
 @app.route("/profils")
 def profils():
     if 'id' not in session:
@@ -103,7 +132,30 @@ def stundas():
 @app.route("/kavets")
 #Šeit varēs redzēt cik procentuāli un skaitā ir kavētas stundas
 def kavets():
-	pass
+    if 'id' not in session:
+        return redirect(url_for('pieslegties'))
+
+    conn = get_db_connection()
+    # Atlasām tikai tos ierakstus, kur ir kavētas stundas
+    tikai_kavejumi = conn.execute("""
+        SELECT * FROM stundas 
+        WHERE Liet_ID = ? AND neapm > 0 
+        ORDER BY datums DESC
+    """, (session['id'],)).fetchall()
+    
+    # Aprēķinām kopējo kavēto stundu skaitu
+    kopsavilkums = conn.execute("""
+        SELECT SUM(neapm), AVG(procents) 
+        FROM stundas 
+        WHERE Liet_ID = ?
+    """, (session['id'],)).fetchone()
+    
+    conn.close()
+
+    return render_template("kavets.html", 
+                           saraksts=tikai_kavejumi, 
+                           summa=kopsavilkums[0] or 0, 
+                           videjais=round(kopsavilkums[1] or 0, 2))
 
 if __name__ == "__main__":
 	app.run(debug = True)
