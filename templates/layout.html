@@ -59,24 +59,29 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand brand-text" href="/">KS Uzskaite</a>
+            <a class="navbar-brand brand-text" href="/">Kavējumu Uzskaite</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                {% if session.get('loma') == 'admins' %}
+                    <li class="nav-item"><a class="nav-link text-danger fw-bold" href="/admin">ADMIN</a></li>
+                    {% endif %}
                     <li class="nav-item"><a class="nav-link" href="/">Sākums</a></li>
                     <li class="nav-item"><a class="nav-link" href="/profils">Profils</a></li>
                     <li class="nav-item"><a class="nav-link" href="/kavets">Kavētās stundas</a></li>
                     <li class="nav-item"><a class="nav-link" href="/stundas">Nedēļas plāns</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/pieteikt">Pieteikt kavējumu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pieteikt">Pievienot kavējumu</a></li>
                     <li class="nav-item"><a class="nav-link" href="/par">Par mums</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/iziet">Iziet</a></li>
                     <li class="nav-item ms-lg-3">
                         <a class="btn btn-outline-primary btn-sm mt-1" href="/pieslegties">Pieslēgties</a>
                     </li>
                     <li class="nav-item ms-lg-2">
                         <a class="btn btn-primary btn-sm mt-1" href="/registreties">Reģistrēties</a>
                     </li>
+
                 </ul>
             </div>
         </div>

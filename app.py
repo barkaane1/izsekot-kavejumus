@@ -115,7 +115,7 @@ def profils():
 def par():
 	return render_template("par.html")
 
-@app.route("/stundas")
+
 #Šeit būs pieejamas visas stundas 
 @app.route("/stundas")
 def stundas():
@@ -156,6 +156,35 @@ def kavets():
                            saraksts=tikai_kavejumi, 
                            summa=kopsavilkums[0] or 0, 
                            videjais=round(kopsavilkums[1] or 0, 2))
+@app.route('/iziet')
+def iziet():
+    session.clear() 
+    return redirect(url_for('sakums'))
+
+@app.route("/admin")
+def admin_panelis():
+    # 1. Pārbaude: vai lietotājs ir ielogojies un vai viņš ir admins
+    # Piezīme: Tavā reģistrācijas formā loma tiek saglabāta kā 'klients' vai 'admins'
+    if 'id' not in session or session.get('loma') != 'admins':
+        return "Pieeja liegta! Šī lapa ir tikai administratoriem.", 403
+
+    conn = get_db_connection()
+    
+    # 2. SQL JOIN vaicājums, lai dabūtu lietotāja vārdu kopā ar viņa kavējumu datiem
+    visi_kavejumi = conn.execute('''
+        SELECT Lietotajs.vards, Lietotajs.uzvards, Lietotajs.klase, 
+               stundas.datums, stundas.ned_st, stundas.neapm, stundas.procents
+        FROM stundas
+        JOIN Lietotajs ON stundas.Liet_ID = Lietotajs.liet_id
+        ORDER BY stundas.datums DESC
+    ''').fetchall()
+    
+    # 3. Saskaitām kopējo sistēmas kavējumu skaitu statistikai
+    kopskaits = conn.execute('SELECT SUM(neapm) FROM stundas').fetchone()[0] or 0
+    
+    conn.close()
+    
+    return render_template("admin.html", kavejumi=visi_kavejumi, kopskaits=kopskaits)
 
 if __name__ == "__main__":
 	app.run(debug = True)
