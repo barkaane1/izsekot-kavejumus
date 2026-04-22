@@ -68,14 +68,13 @@
     <li class="nav-item"><a class="nav-link" href="/">Sākums</a></li>
     <li class="nav-item"><a class="nav-link" href="/par">Par mums</a></li>
 
-    {# 1. JA LIETOTĀJS IR IELOGOJIES #}
+
     {% if session.get('id') %}
         <li class="nav-item"><a class="nav-link" href="/profils">Profils</a></li>
         <li class="nav-item"><a class="nav-link" href="/kavets">Kavētās stundas</a></li>
         <li class="nav-item"><a class="nav-link" href="/stundas">Nedēļas plāns</a></li>
         <li class="nav-item"><a class="nav-link" href="/pieteikt">Pieteikt kavējumu</a></li>
 
-        {# 2. JA LIETOTĀJS IR ADMINS - Rādām admin pogu #}
         {% if session.get('loma') == 'admin' %}
             <li class="nav-item">
                 <a class="nav-link text-danger fw-bold" href="/admin">ADMIN PANELIS</a>
@@ -86,7 +85,7 @@
             <a class="btn btn-outline-danger btn-sm mt-1" href="/iziet">Iziet ({{ session.get('vards') }})</a>
         </li>
 
-    {# 3. JA LIETOTĀJS NAV IELOGOJIES - Rādām tikai pieslēgšanās pogas #}
+
     {% else %}
         <li class="nav-item ms-lg-3">
             <a class="btn btn-outline-primary btn-sm mt-1" href="/pieslegties">Pieslēgties</a>
