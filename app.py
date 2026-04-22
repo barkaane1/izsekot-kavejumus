@@ -165,7 +165,7 @@ def iziet():
 def admin_panelis():
     # 1. Pārbaude: vai lietotājs ir ielogojies un vai viņš ir admins
     # Piezīme: Tavā reģistrācijas formā loma tiek saglabāta kā 'klients' vai 'admins'
-    if 'id' not in session or session.get('loma') != 'admins':
+    if 'id' not in session or session.get('loma') != 'admin':
         return "Pieeja liegta! Šī lapa ir tikai administratoriem.", 403
 
     conn = get_db_connection()

@@ -65,24 +65,37 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                {% if session.get('loma') == 'admins' %}
-                    <li class="nav-item"><a class="nav-link text-danger fw-bold" href="/admin">ADMIN</a></li>
-                    {% endif %}
-                    <li class="nav-item"><a class="nav-link" href="/">Sākums</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/profils">Profils</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/kavets">Kavētās stundas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/stundas">Nedēļas plāns</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/pieteikt">Pievienot kavējumu</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/par">Par mums</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/iziet">Iziet</a></li>
-                    <li class="nav-item ms-lg-3">
-                        <a class="btn btn-outline-primary btn-sm mt-1" href="/pieslegties">Pieslēgties</a>
-                    </li>
-                    <li class="nav-item ms-lg-2">
-                        <a class="btn btn-primary btn-sm mt-1" href="/registreties">Reģistrēties</a>
-                    </li>
+    <li class="nav-item"><a class="nav-link" href="/">Sākums</a></li>
+    <li class="nav-item"><a class="nav-link" href="/par">Par mums</a></li>
 
-                </ul>
+    {# 1. JA LIETOTĀJS IR IELOGOJIES #}
+    {% if session.get('id') %}
+        <li class="nav-item"><a class="nav-link" href="/profils">Profils</a></li>
+        <li class="nav-item"><a class="nav-link" href="/kavets">Kavētās stundas</a></li>
+        <li class="nav-item"><a class="nav-link" href="/stundas">Nedēļas plāns</a></li>
+        <li class="nav-item"><a class="nav-link" href="/pieteikt">Pieteikt kavējumu</a></li>
+
+        {# 2. JA LIETOTĀJS IR ADMINS - Rādām admin pogu #}
+        {% if session.get('loma') == 'admin' %}
+            <li class="nav-item">
+                <a class="nav-link text-danger fw-bold" href="/admin">ADMIN PANELIS</a>
+            </li>
+        {% endif %}
+
+        <li class="nav-item ms-lg-3">
+            <a class="btn btn-outline-danger btn-sm mt-1" href="/iziet">Iziet ({{ session.get('vards') }})</a>
+        </li>
+
+    {# 3. JA LIETOTĀJS NAV IELOGOJIES - Rādām tikai pieslēgšanās pogas #}
+    {% else %}
+        <li class="nav-item ms-lg-3">
+            <a class="btn btn-outline-primary btn-sm mt-1" href="/pieslegties">Pieslēgties</a>
+        </li>
+        <li class="nav-item ms-lg-2">
+            <a class="btn btn-primary btn-sm mt-1" href="/registreties">Reģistrēties</a>
+        </li>
+    {% endif %}
+</ul>
             </div>
         </div>
     </nav>
@@ -93,7 +106,7 @@
         
         <div class="content-wrapper">
             {% block content %}
-            <p class="text-muted">Saturs tiks ielādēts šeit...</p>
+            <p class="text-muted">Saki NĒ brīdinājumam par kavētām stundām, izseko cik ukad esi kavējis kopā ar mums!!!!!!❤️❤️❤️❤️❤️</p>
             {% endblock %}
         </div>
     </main>

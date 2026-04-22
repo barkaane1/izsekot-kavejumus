@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Administratora panelis: Visi kavējumi</h2>
+        <div class="badge bg-danger p-2 fs-5">Kopā sistēmā kavēts: {{ kopskaits }} st.</div>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Skolēns</th>
+                        <th>Klase</th>
+                        <th>Datums</th>
+                        <th>Plānotās</th>
+                        <th>Kavētās</th>
+                        <th>%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ieraksts in kavejumi %}
+                    <tr>
+                        <td><strong>{{ ieraksts.vards }} {{ ieraksts.uzvards }}</strong></td>
+                        <td>{{ ieraksts.klase }}</td>
+                        <td>{{ ieraksts.datums }}</td>
+                        <td>{{ ieraksts.ned_st }}</td>
+                        <td class="text-danger fw-bold">{{ ieraksts.neapm }}</td>
+                        <td>
+                            <span class="badge {{ 'bg-danger' if ieraksts.procents > 15 else 'bg-warning text-dark' if ieraksts.procents > 0 else 'bg-success' }}">
+                                {{ ieraksts.procents }}%
+                            </span>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">Sistēmā vēl nav ievadīts neviens kavējums.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
