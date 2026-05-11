@@ -24,5 +24,5 @@ Sistēma izmanto relāciju datubāzi ar trim galvenajām tabulām: `LIETOTAJI`, 
 ## ⚖️ Licence
 Šis projekts ir licencēts saskaņā ar **MIT licenci** – tas ir atvērts pirmkods, kuru drīkst brīvi lietot un mainīt.
 
-## ⚖️ Licence
-Šis projekts ir licencēts saskaņā ar **MIT licenc
+## MĀJASLAPA
+https://kbarkane.eu.pythonanywhere.com/
